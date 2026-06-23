@@ -92,7 +92,7 @@ export default function ChatWidget() {
                 <p className="font-display text-sm font-bold text-white">
                   Ask About Paul
                 </p>
-                <p className="text-xs text-gray-text">Powered by Gemini</p>
+                <p className="text-xs text-gray-text">Powered by OpenAI</p>
               </div>
               <button
                 type="button"

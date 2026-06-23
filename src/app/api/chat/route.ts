@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import OpenAI from "openai";
 import { buildChatSystemPrompt } from "@/lib/chat-context";
 
 interface ChatMessage {
@@ -7,17 +7,9 @@ interface ChatMessage {
   content: string;
 }
 
-function sanitizeHistory(messages: ChatMessage[]): ChatMessage[] {
-  let history = messages.slice(0, -1);
-  while (history.length > 0 && history[0].role === "assistant") {
-    history = history.slice(1);
-  }
-  return history;
-}
-
 export async function POST(request: NextRequest) {
   try {
-    const apiKey = process.env.GOOGLE_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
         { error: "Chat service is not configured." },
@@ -43,20 +35,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
-      systemInstruction: buildChatSystemPrompt(),
+    const openai = new OpenAI({ apiKey });
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: buildChatSystemPrompt() },
+        ...messages.map((msg) => ({
+          role: msg.role,
+          content: msg.content,
+        })),
+      ],
     });
 
-    const history = sanitizeHistory(messages).map((msg) => ({
-      role: msg.role === "assistant" ? "model" : "user",
-      parts: [{ text: msg.content }],
-    }));
-
-    const chat = model.startChat({ history });
-    const result = await chat.sendMessage(lastMessage.content.trim());
-    const reply = result.response.text();
+    const reply = completion.choices[0]?.message?.content?.trim();
+    if (!reply) {
+      return NextResponse.json(
+        { error: "Failed to get a response. Please try again." },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ reply });
   } catch (error) {
