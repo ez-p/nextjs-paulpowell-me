@@ -5,7 +5,7 @@
   --color-blue-primary: #209dd7;
   --color-purple-secondary: #753991;
   --color-dark-navy: #032147;
-  --color-gray-text: #888888;
+  --color-gray-text: #b8c2ce;
   --color-surface: #041a35;
   --color-surface-elevated: #0a2544;
   --font-display: var(--font-syne);
@@ -19,7 +19,7 @@ html {
 body {
   font-family: var(--font-body), system-ui, sans-serif;
   background-color: var(--color-dark-navy);
-  color: #e8edf4;
+  color: #eef2f6;
 }
 
 ::selection {
