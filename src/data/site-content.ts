@@ -160,7 +160,7 @@ export const portfolioProjects = [
       },
       {
         label: "GitHub",
-        href: "https://github.com/ez-p/paulpowell_me",
+        href: "https://github.com/ez-p/nextjs-paulpowell-me",
       },
     ],
   },
