@@ -1,13 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { buildChatSystemPrompt } from "@/lib/chat-context";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
 }
 
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 2000;
+
 export async function POST(request: NextRequest) {
+  const ip = getClientIp(request);
+  const { ok, retryAfter } = checkRateLimit(ip);
+  if (!ok) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      {
+        status: 429,
+        headers: retryAfter ? { "Retry-After": String(retryAfter) } : {},
+      }
+    );
+  }
+
   try {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
@@ -23,6 +39,20 @@ export async function POST(request: NextRequest) {
     if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
         { error: "Messages are required." },
+        { status: 400 }
+      );
+    }
+
+    if (messages.length > MAX_MESSAGES) {
+      return NextResponse.json(
+        { error: "Conversation is too long." },
+        { status: 400 }
+      );
+    }
+
+    if (messages.some((m) => !m.content || m.content.length > MAX_MESSAGE_LENGTH)) {
+      return NextResponse.json(
+        { error: "Message is too long." },
         { status: 400 }
       );
     }

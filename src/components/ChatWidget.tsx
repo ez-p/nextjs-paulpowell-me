@@ -52,10 +52,11 @@ export default function ChatWidget() {
     setError("");
 
     try {
+      const apiMessages = nextMessages.filter((m) => m !== WELCOME);
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: nextMessages }),
+        body: JSON.stringify({ messages: apiMessages }),
       });
 
       const data = await res.json();

@@ -15,7 +15,7 @@ export default function Portfolio() {
           />
         </Reveal>
 
-        <div className="grid gap-8 lg:grid-cols-1">
+        <div className="grid gap-8">
           {portfolioProjects.map((project, index) => (
             <Reveal key={project.title} delay={100 + index * 80}>
               <article className="card-hover relative overflow-hidden rounded-2xl border border-white/5 bg-dark-navy/60 p-6 backdrop-blur-sm sm:p-8">

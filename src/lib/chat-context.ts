@@ -10,10 +10,7 @@ import {
   skills,
 } from "@/data/site-content";
 
-function loadMyInfo(): string {
-  const path = join(process.cwd(), "myinfo", "myinfo.md");
-  return readFileSync(path, "utf-8");
-}
+const myInfoContent = readFileSync(join(process.cwd(), "myinfo", "myinfo.md"), "utf-8");
 
 function buildCareerContext(): string {
   const career = careerJourney
@@ -62,7 +59,6 @@ ${projectList}
 }
 
 export function buildChatSystemPrompt(): string {
-  const myInfo = loadMyInfo();
   const careerContext = buildCareerContext();
 
   return `You are a friendly AI assistant on Paul Powell's professional website. Your role is to answer questions about Paul's career, technical background, hobbies, and personal life.
@@ -75,7 +71,7 @@ RULES:
 - Keep responses concise unless the user asks for detail.
 
 === PERSONAL INFORMATION (from myinfo.md) ===
-${myInfo}
+${myInfoContent}
 
 === CAREER & PROFESSIONAL INFORMATION ===
 ${careerContext}

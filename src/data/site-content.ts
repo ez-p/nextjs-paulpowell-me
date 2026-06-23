@@ -152,7 +152,7 @@ export const portfolioProjects = [
       "Vibe engineered web page describing professional accomplishments.",
       "Includes artificial intelligence assistance to answer questions specifically about me.",
     ],
-    tags: ["Next.js", "Gemini", "TypeScript", "Tailwind CSS"],
+    tags: ["Next.js", "OpenAI", "TypeScript", "Tailwind CSS"],
     links: [
       {
         label: "Live Site",

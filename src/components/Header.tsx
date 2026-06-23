@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/data/site-content";
 
 const navLinks = [
@@ -14,6 +14,7 @@ const navLinks = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -21,8 +22,20 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onMouseDown = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onMouseDown);
+    return () => document.removeEventListener("mousedown", onMouseDown);
+  }, [menuOpen]);
+
   return (
     <header
+      ref={headerRef}
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
           ? "border-b border-white/5 bg-dark-navy/90 backdrop-blur-md"
@@ -69,6 +82,8 @@ export default function Header() {
           className="flex flex-col gap-1.5 md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
         >
           <span
             className={`block h-0.5 w-6 bg-accent-yellow transition-transform ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
@@ -83,7 +98,7 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-white/5 bg-dark-navy/95 px-6 py-4 backdrop-blur-md md:hidden">
+        <nav id="mobile-nav" className="border-t border-white/5 bg-dark-navy/95 px-6 py-4 backdrop-blur-md md:hidden">
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <a

@@ -1,5 +1,5 @@
 # Project Summary
-A webstie about myself, centered on my professional accomplishments. This is a professional website, the aim is to present professional information about myself to potential employers.
+A website about myself, centered on my professional accomplishments. This is a professional website, the aim is to present professional information about myself to potential employers.
 
 ## Goals
 Develop a NextJS powered professional career oriented web page about my professional career and technical abilities.
