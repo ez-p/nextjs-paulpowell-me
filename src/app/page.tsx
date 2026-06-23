@@ -4,7 +4,7 @@ import About from "@/components/About";
 import CareerJourney from "@/components/CareerJourney";
 import Skills from "@/components/Skills";
 import Portfolio from "@/components/Portfolio";
-import ContactForm from "@/components/ContactForm";
+import Connect from "@/components/Connect";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 
@@ -18,7 +18,7 @@ export default function Home() {
         <CareerJourney />
         <Skills />
         <Portfolio />
-        <ContactForm />
+        <Connect />
       </main>
       <Footer />
       <ChatWidget />
