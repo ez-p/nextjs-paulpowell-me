@@ -21,8 +21,8 @@ I am currently interested in learning about artificial intelligence. I'm interes
 
 Additionally, I'm learning new programming languages including Golang and Rust.
 ## Work Timeline
-I worked at IBM from the year 1994 to 1998
-I worked at Adaptec from the year 1999 to 2003
+I worked at IBM from the year 1999 to 2003
+I worked at Adaptec from the year 2003 to 2007
 I worked at NetApp from the year 2007 to 2026
 ## Python Proficiency
 I am proficient in Python, having worked with Python for over ten years. My most recent job as a Performance Automation Engineer at NetApp was a Python programming position. Our codebase was a large object-oriented Python codebase with emphasis on high-performing distributed multi-threading architecture. I spent a tremendous amount of time coding in Python to develop, extend, and refactor the Python code. I enabled the code to run with both Python 2 and Python 3 whereas previously it was only Python 2. Since we supported running on very old operating systems that do not support Python 3, we needed to maintain backward compatibility with Python 2 while also supporting running with the preferred latest version of Python 3. Prior to NetApp I developed and supported several Python-based applications at Adaptec. At NetApp I helped develop a Django web application to uncover new customer upsell opportunities by data-mining our customer data. This application also surfaced technical bulletins that the customer should be aware of, so they can apply upgrades to their NetApp systems. I also developed, expanded, and supported another Django web application that was used to support the Performance Automation Python framework by allowing users to schedule performance tests against NetApp filers and clients (Linux and Windows clients). This Django application allowed users to select the hardware they wish to run against, and then set many submission parameters that would allow the user to select the type of performance run that would run when the submitted job came off the run queue that was implemented to schedule performance automation runs.
